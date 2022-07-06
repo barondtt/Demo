@@ -1,32 +1,18 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    Xin chào {{ name }}
+    <button @click="changeName">Thay đổi</button>
+    <hr>
+    <div class="mixin">
+      <div class="way_1">Quy tắc Mixin (1)</div>
+      <div class="way_2">Quy tắc Mixin (2)</div>
+    </div>
+    <hr>
+    <div class="extends">
+      Kế thừa (Extends)
+    </div>
+    <hr>
+    <div id="title-import">Import file scss</div>
   </div>
 </template>
 
@@ -35,24 +21,66 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      name: "Toàn",
+    }
+  },
+  methods: {
+    changeName() {
+      this.name = "Đỗ Tiến Toàn"
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
+<style scoped lang="scss">
+/* Biến*/
+$whiteColor: blue;
+
+/* Quy tắc mixin*/
+/* Cách 1 */
+@mixin colorVsFont {
+  color: red;
+  font-size: 24px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+/* Cách 2 */
+@mixin colorVsFont_2($color, $fontSize) {
+  color: $color;
+  font-size: $fontSize;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+/* Kế thừa (Extends) */
+.title {
+  color: cadetblue;
+  font-size: 40px;
+  padding: 30px;
+  background: red;
 }
-a {
-  color: #42b983;
+
+
+
+.hello {
+  button {
+    background: $whiteColor;
+  }
+
+  .mixin {
+    .way_1 {
+      @include colorVsFont;
+    }
+
+    .way_2 {
+      @include colorVsFont_2(blue, 30px)
+    }
+  }
+
+  .extends {
+    @extend .title
+  }
 }
+@import "./src/assets/style/HelloWorld";
 </style>
